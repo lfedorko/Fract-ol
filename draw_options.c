@@ -13,7 +13,7 @@ void	set_color(t_map *map, int x, int y)
 {
 	int	pos;
 
-	pos = (x) * 4 + (y) * map->s_l;
+	pos = x * 4 + y * map->s_l;
 	if (pos >= 0 && pos < WIN_H * WIN_W * 4)
 	{
 		map->image[pos] = map->color->r;

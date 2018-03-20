@@ -9,6 +9,7 @@ void 	*handle_thread(void *part)
 
 	p = (t_thread *)part;
 	x = p->begin - 1;
+    printf("%d %d\n",p->begin, p->end);
 	while (++x < p->end)
 	{
 		y = -1;

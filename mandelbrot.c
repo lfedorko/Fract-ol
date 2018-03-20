@@ -22,7 +22,6 @@ void draw_mandelbrot(t_map *map, int x, int y)
 	i = 0;
 	re = 0;
 	im = 0;
-	//printf("x = %d , y = %d\n",x,y);
 	map->f->c[0] = 1.5 * (x - WIN_W / 2) / (0.5 * map->f->zoom * WIN_W) + map->f->move[0];
 	map->f->c[1] = (y - WIN_H / 2) / (0.5 * map->f->zoom * WIN_H) + map->f->move[1];
 	while (i < map->f->iter && ((pow(re, 2) + pow(im, 2)) < 4))
