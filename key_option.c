@@ -28,6 +28,8 @@ int		key_exit(int k,t_map *map)
 	}
 	if (k == 123 || k == 124 || k == 125 || k == 126)
 		move_image(k, map);
+ 	if (k == 49)
+		map->f->pause = !map->f->pause;
 	return (1);
 }
 
@@ -63,24 +65,13 @@ int		zoom_with_mouse(int key, int x, int y, t_map *map)
 	return (0);
 }
 
-int		move_with_mouse(int x, int y, t_map *map)
+int		mouse_move_hook(int x, int y, t_map *map)
 {
-	if (map->f->fract == 4)
+	if (map->f->pause != 0)
 	{
-		if (x >= WIN_W / 2 && x < WIN_W)
-		{
-			map->f->c[0] += ((x - WIN_W / 2) * 0.00002);
-			map->f->c[1] += ((x - WIN_H / 2) * 0.00002);
-		}
-		if (x < WIN_W / 2 && x > 0)
-		{
-			map->f->c[0] -= ((WIN_W / 2 - x) * 0.00002);
-			map->f->c[1] -= ((WIN_W/ 2 - x) * 0.00002);
-		}
+		map->f->c[0] = ((float)((x - WIN_W) / 2)/ WIN_W) * 0.84;
+		map->f->c[1] = ((float)((y - WIN_H) / 2) / WIN_H) * 0.84;
 		redraw(map);
 	}
-	map->add_x = x;
-	map->add_y = y;
-	mlx_mouse_hook(map->win, zoom_with_mouse, map);
 	return (0);
 }
