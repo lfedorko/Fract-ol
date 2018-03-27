@@ -67,7 +67,7 @@ int		zoom_with_mouse(int key, int x, int y, t_map *map)
 
 int		mouse_move_hook(int x, int y, t_map *map)
 {
-	if (map->f->pause != 0)
+	if (map->f->pause)
 	{
 		map->f->c[0] = ((float)((x - WIN_W) / 2)/ WIN_W) * 0.84;
 		map->f->c[1] = ((float)((y - WIN_H) / 2) / WIN_H) * 0.84;

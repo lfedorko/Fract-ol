@@ -14,7 +14,7 @@ void 	*handle_thread(void *part)
 	{
 		y = -1;
 		while (++y < WIN_H)
-			draw_mandelbrot(p->map, x, y);
+			p->map->fract(p->map, x, y);
 	}
 	return (NULL);
 }
@@ -33,7 +33,7 @@ void  draw(t_map *map)
 		zone[i].map = map;
 		zone[i].begin = i * part;
 		zone[i].end = zone[i].begin + part;
-		pthread_create(&zone[i].thread, NULL, (void*)handle_thread, (void *)(&zone[i]));
+		pthread_create(&zone[i].thread, NULL, (void *)handle_thread, (void *)(&zone[i]));
 	}
 	i = -1;
 	while (++i < THR)
@@ -53,12 +53,14 @@ void	process(int n)
 	mlx_put_image_to_window(map->mlx, map->win, map->n_i, 200, 0);
 	mlx_hook(map->win, 17, 1L << 17, mouse_exit, map);
 	mlx_hook(map->win, 2, 0, key_exit, map);
-	if (map->f->fract == 4)
+	if (map->f->fract == 3)
 		mlx_hook(map->win, 6, (1L << 6), mouse_move_hook, map);
 	show_menu(map);
 	mlx_loop(map->mlx);
 //	ft_memdel((void **)map);
 }
+
+
 
 
 int		main(int argc, char **argv)

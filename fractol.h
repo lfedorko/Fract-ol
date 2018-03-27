@@ -21,15 +21,13 @@ typedef struct	s_color
 typedef struct	s_fractol
 {
 	int			fract;
-	float		zoom; //зум
-	int			iter; // кол-во итераций
+	float		zoom;
+	int			iter;
 	int			x; 
 	int			y;
-	float		re;
-	float		im;
 	float		c[2]; 
 	float		move[2];
-	int			pause;
+    int			pause;
 }				t_fractol;
 
 typedef struct	s_map
@@ -42,6 +40,7 @@ typedef struct	s_map
 	int			s_l;
 	int			b_p_p;
 	int			end;
+    void        (*fract)(struct s_map *, int, int);
 	t_fractol 	*f;
 	t_color		*color;
 	float		add_x;
@@ -62,7 +61,6 @@ size_t		ft_strlen(const char *s);
 void	*ft_memset(void *b, int c, size_t len);
 
 void	show_menu(t_map* map);
-void		julia_draw(t_map *map, t_fractol *f);
 
 /*
 ** key_option.c
@@ -77,7 +75,7 @@ int			move_with_mouse(int x, int y, t_map *map);
 ** julia.c
 */
 void			init_julia(t_map *map);
-void	julia_draw(t_map *map, t_fractol *f);
+void	        julia_draw(t_map *map, int x, int y);
 /*
 ** mandelbrot.c
 */
@@ -87,12 +85,8 @@ void			draw_mandelbrot(t_map *map, int x, int y);
 ** burning_ship.c
 */
 void			init_ship(t_map *map);
-void			ship_draw(t_map *map, t_fractol *f);
-/*
-** triangle.c
-*/
-void			init_triangle(t_map *map);
-void			triangle_draw(t_map *map, t_fractol *f);
+void			ship_draw(t_map *map, int x, int y);
+
 /*
 ** draw_options.c
 */
