@@ -2,14 +2,12 @@
 
 int		mouse_exit(t_map *map)
 {
-	//ft_memdel(map);
+	free_func(map);
 	exit(1);
-
 }
 
-int		key_exit(int k,t_map *map)
+int		key_exit(int k, t_map *map)
 {
-	
 	if (k == 53)
 		exit(0);
 	if (k == 24)
@@ -28,7 +26,7 @@ int		key_exit(int k,t_map *map)
 	}
 	if (k == 123 || k == 124 || k == 125 || k == 126)
 		move_image(k, map);
- 	if (k == 49)
+ 	if (k == 49 && map->f->fract == 3)
 		map->f->pause = !map->f->pause;
 	return (1);
 }

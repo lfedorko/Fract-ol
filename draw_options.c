@@ -44,11 +44,20 @@ void	init_fractol(t_map *map)
 
 void	show_menu(t_map* map)
 {
-	mlx_string_put(map->mlx, map->win, 5, 5,  0xFFFFFF, "Fractal\n");
-	mlx_string_put(map->mlx, map->win, 5, 25, 0xFFFFFF, "Iteration:");
-	mlx_string_put(map->mlx, map->win, 150, 25, 0xFFFFFF, ft_itoa(map->f->iter));
+	mlx_string_put(map->mlx, map->win, 30, 25,  0xFFFFFF, "Fractal\n");
+	mlx_string_put(map->mlx, map->win, 25, 100, 0xFFFFFF, "Iteration:");
+	mlx_string_put(map->mlx, map->win, 150, 100, 0xFFFFFF, ft_itoa(map->f->iter));
+	mlx_string_put(map->mlx, map->win, 40, 300,  0xFFFFFF, "Controls:\n");
+	mlx_string_put(map->mlx, map->win, 25, 330, 0xFFFFFF,  "[R] - reset");
+	mlx_string_put(map->mlx, map->win, 25, 360, 0xFFFFFF,  "[ARROWS] - move");
+	mlx_string_put(map->mlx, map->win, 25, 390, 0xFFFFFF,  "[+/-] - iteration");
+	
+	if (map->f->fract == 3)
+		mlx_string_put(map->mlx, map->win, 25, 420, 0xFFFFFF,  "[SPACE] - rotate");
+	mlx_string_put(map->mlx, map->win, 150, 100, 0xFFFFFF, ft_itoa(map->f->iter));
+	
 	if (map->f->pause == 1)
-		mlx_string_put(map->mlx, map->win, 5, 500, 0xFF, "PAUSE");
+		mlx_string_put(map->mlx, map->win, 25, 500, 0xFF, "PAUSE");
 	else
-		mlx_string_put(map->mlx, map->win, 5, 500, 0xFFFF, "       ");
+		mlx_string_put(map->mlx, map->win, 25, 500, 0, "       ");
 }

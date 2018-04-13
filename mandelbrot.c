@@ -9,7 +9,7 @@ void init_mandelbrot(t_map *map)
 	map->f->iter = 9;
 	map->f->zoom = 1;
 	map->f->move[1] = 0;
-	map->f->move[0] = 0;
+	map->f->move[0] = -0.5;
 }
 
 void draw_mandelbrot(t_map *map, int x, int y)
@@ -36,7 +36,7 @@ void draw_mandelbrot(t_map *map, int x, int y)
 	if (i < map->f->iter) 
 	{
 		map->color->r = 0;
-		map->color->b = i * 6 % 1;
+		map->color->b = i * 6;
 		map->color->g = i * 6 % 128;
 		set_color(map, x, y);
 	}

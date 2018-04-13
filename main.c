@@ -9,14 +9,20 @@ void 	*handle_thread(void *part)
 
 	p = (t_thread *)part;
 	x = p->begin - 1;
-    printf("%d %d\n",p->begin, p->end);
-	while (++x < p->end)
+   	while (++x < p->end)
 	{
 		y = -1;
 		while (++y < WIN_H)
 			p->map->fract(p->map, x, y);
 	}
 	return (NULL);
+}
+
+void free_func(t_map *map)
+{
+	free(map->f);
+	free(map->color);
+	free(map);
 }
 
 void  draw(t_map *map)
@@ -57,11 +63,8 @@ void	process(int n)
 		mlx_hook(map->win, 6, (1L << 6), mouse_move_hook, map);
 	show_menu(map);
 	mlx_loop(map->mlx);
-//	ft_memdel((void **)map);
+	free_func(map);
 }
-
-
-
 
 int		main(int argc, char **argv)
 {

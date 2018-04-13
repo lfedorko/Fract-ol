@@ -9,7 +9,7 @@ void init_ship(t_map *map)
 	map->image = mlx_get_data_addr(map->n_i, &(map->b_p_p), &(map->s_l), &(map->end));
 	map->f->iter = 9;
 	map->f->zoom = 1;
-	map->f->move[0] = 0;
+	map->f->move[0] = 0.5;
 	map->f->move[1] = -0.5;
 }
 

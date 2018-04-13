@@ -2,7 +2,7 @@
 # define FRACTOL_H
 # define WIN_H 600
 # define WIN_W 800
-# define THR 8
+# define THR 10
 # define WIN_SIZE
 # include <mlx.h>
 # include <stdio.h>
@@ -60,8 +60,8 @@ char			*ft_itoa(int n);
 size_t		ft_strlen(const char *s);
 void	*ft_memset(void *b, int c, size_t len);
 
-void	show_menu(t_map* map);
-
+void		show_menu(t_map* map);
+void		free_func(t_map *map);
 /*
 ** key_option.c
 */
