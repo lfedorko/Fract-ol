@@ -9,7 +9,7 @@ void 	*handle_thread(void *part)
 
 	p = (t_thread *)part;
 	x = p->begin - 1;
-   	while (++x < p->end)
+	while (++x < p->end)
 	{
 		y = -1;
 		while (++y < WIN_H)
@@ -33,7 +33,7 @@ void  draw(t_map *map)
 
 	i = -1;
 	part = WIN_W / THR;
-    zone = (t_thread *)malloc(sizeof(t_thread) * THR);
+	zone = (t_thread *)malloc(sizeof(t_thread) * THR);
 	while (++i < THR)
 	{
 		zone[i].map = map;

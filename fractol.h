@@ -2,7 +2,7 @@
 # define FRACTOL_H
 # define WIN_H 600
 # define WIN_W 800
-# define THR 10
+# define THR 8
 # define WIN_SIZE
 # include <mlx.h>
 # include <stdio.h>
@@ -95,6 +95,5 @@ void  			draw(t_map *map);
 void			init_fractol(t_map *map);
 void			change_iter(t_map *map);
 void 			redraw(t_map *map);
-
 
 #endif

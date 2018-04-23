@@ -17,14 +17,13 @@ void init_julia(t_map *map)
 void	julia_draw(t_map *map, int x, int y)
 {
 	float	tmp[2];
-	float 	re;
+	float	re;
 	float	im;
 	int		i;
-
-
+	int		pos;
 
 	i = 0;
-    re = 1.5 * (x - WIN_W / 2) / (0.5 * map->f->zoom * WIN_W) + map->f->move[0];
+	re = 1.5 * (x - WIN_W / 2) / (0.5 * map->f->zoom * WIN_W) + map->f->move[0];
 	im = (y - WIN_H / 2) / (0.5 * map->f->zoom * WIN_H) + map->f->move[1];
 	while (i < map->f->iter && ((pow(re, 2) + pow(im, 2)) < 4))
 	{
@@ -36,9 +35,9 @@ void	julia_draw(t_map *map, int x, int y)
 	}
 	if (i < map->f->iter)
 	{
-		map->color->r = 0;
-		map->color->b = i;
-		map->color->g = i * 6 % 128;
-		set_color(map, x, y);
+		pos = x * 4 + y * map->s_l;
+		map->image[pos] = 0;
+		map->image[pos + 1] = i * 6;
+		map->image[pos + 2] = i * 6 % 128;
 	}
 }

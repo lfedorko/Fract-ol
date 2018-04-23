@@ -1,6 +1,5 @@
 #include "fractol.h"
 
-
 void init_ship(t_map *map)
 {
 	map->mlx = mlx_init();
@@ -17,27 +16,27 @@ void	ship_draw(t_map *map, int x, int y)
 {
 	float	tmp;
 	int		i;
-    float   c[2];
-    float   re;
-    float   im;
+	float	c[2];
+	float	re;
+	float	im;
+	int		pos;
 
-    i = 0;
-    c[0] = 1.5 * (x - WIN_W / 2) / (0.5 * map->f->zoom * WIN_W) - 1 + map->f->move[0];
-    c[1] = (y - WIN_H / 2) / (0.5 * map->f->zoom * WIN_H) + map->f->move[1];
-    re = c[0];
-    im = c[1];
-    while (i < map->f->iter && ((pow(re, 2) + pow(im, 2)) < 4))
-    {
-        tmp = im;
-        im = fabs(re * im + re * im + c[1]);
-        re = fabs(re * re - pow(tmp, 2) + c[0]);
-        i++;
-    }
-    if (i < map->f->iter)
-    {
-        map->color->r = 0;
-        map->color->b = i * 6 % 255;
-        map->color->g = i * 6 % 255;
-        set_color(map, x, y);
-    }
+	i = -1;
+	c[0] = 1.5 * (x - WIN_W / 2) / (0.5 * map->f->zoom * WIN_W) - 1 + map->f->move[0];
+	c[1] = (y - WIN_H / 2) / (0.5 * map->f->zoom * WIN_H) + map->f->move[1];
+	re = c[0];
+	im = c[1];
+	while (++i < map->f->iter && ((pow(re, 2) + pow(im, 2)) < 4))
+	{
+		tmp = im;
+		im = fabs(re * im + re * im + c[1]);
+		re = fabs(re * re - pow(tmp, 2) + c[0]);
+	}
+	if (i < map->f->iter && pos >= 0 && pos < WIN_H * WIN_W * 4) 
+	{
+		pos = x * 4 + y * map->s_l;
+		map->image[pos] = 0;
+		map->image[pos + 1] = i * 6;
+		map->image[pos + 2] = i * 6 % 128;
+	}
 }
