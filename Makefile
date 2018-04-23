@@ -2,16 +2,16 @@ NAME = fractol
 
 FLAGS = -Wall -Wextra -Werror
 
-SOURCE = main.c \
-		key_option.c \
-		draw_options.c \
-		mandelbrot.c \
-		julia.c \
-		burning_ship.c \
-		lib_function/ft_bzero.c \
-		lib_function/ft_itoa.c \
-		lib_function/ft_strlen.c \
-		lib_function/ft_memset.c \
+SOURCE = src/main.c \
+		src/key_option.c \
+		src/draw_options.c \
+		src/mandelbrot.c \
+		src/julia.c \
+		src/burning_ship.c \
+		src/lib_function/ft_bzero.c \
+		src/lib_function/ft_itoa.c \
+		src/lib_function/ft_strlen.c \
+		src/lib_function/ft_memset.c \
 
 OBJECTS = $(SOURCE:.c=.o)
 
