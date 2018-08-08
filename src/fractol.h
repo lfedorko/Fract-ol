@@ -18,6 +18,10 @@ typedef struct	s_color
 	float		b;
 }				t_color;
 
+/*
+** value of area 0 - min 1 - max
+**  others 0 - re 1 -im
+*/
 typedef struct	s_fractol
 {
 	int			fract;
@@ -26,6 +30,9 @@ typedef struct	s_fractol
 	int			x; 
 	int			y;
 	float		c[2]; 
+	float		re_area[2];
+	float		im_area[2];
+	float 		add[2];
 	float		move[2];
     int			pause;
 }				t_fractol;
@@ -43,8 +50,6 @@ typedef struct	s_map
     void        (*fract)(struct s_map *, int, int);
 	t_fractol 	*f;
 	t_color		*color;
-	float		add_x;
-	float		add_y;
 }				t_map;
 
 typedef struct	s_thread
@@ -70,6 +75,7 @@ int			mouse_move_hook(int x, int y, t_map *map);
 int			mouse_exit(t_map *map);
 int			key_exit(int k, t_map *map);
 int			move_with_mouse(int x, int y, t_map *map);
+int			zoom_with_mouse(int key, int x, int y, t_map *map);
 
 /*
 ** julia.c

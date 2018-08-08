@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lfedorko <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/03 20:13:15 by lfedorko          #+#    #+#             */
+/*   Updated: 2018/07/03 20:13:16 by lfedorko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "fractol.h"
 
 void 	*handle_thread(void *part)
@@ -5,7 +18,6 @@ void 	*handle_thread(void *part)
 	int			x;
 	int			y;
 	t_thread	*p;
-
 
 	p = (t_thread *)part;
 	x = p->begin - 1;
@@ -59,6 +71,7 @@ void	process(int n)
 	mlx_put_image_to_window(map->mlx, map->win, map->n_i, 200, 0);
 	mlx_hook(map->win, 17, 1L << 17, mouse_exit, map);
 	mlx_hook(map->win, 2, 0, key_exit, map);
+	mlx_mouse_hook(map->win, zoom_with_mouse, map);
 	if (map->f->fract == 3)
 		mlx_hook(map->win, 6, (1L << 6), mouse_move_hook, map);
 	show_menu(map);

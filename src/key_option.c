@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_option.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lfedorko <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/03 20:10:55 by lfedorko          #+#    #+#             */
+/*   Updated: 2018/07/03 20:10:56 by lfedorko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "fractol.h"
 
 int		mouse_exit(t_map *map)
@@ -12,7 +25,7 @@ int		key_exit(int k, t_map *map)
 		exit(0);
 	if (k == 24)
 	{
-		if (map->f->iter < 20)
+		if (map->f->iter < 200)
 			map->f->iter += 1;
 		redraw(map);
 	}
@@ -46,19 +59,20 @@ void move_image(int k, t_map *map)
 
 int		zoom_with_mouse(int key, int x, int y, t_map *map)
 {
-	x = y;
+
+	double x_mult, y_mult;
+	printf("%d %d\n",x,y);
+
 	if (key == 4)
 	{
-		map->f->zoom /= 1.1;
-		map->f->move[0] += -((WIN_W/ 2 - map->add_x)) / 1000 / map->f->zoom;
-		map->f->move[1] += -((WIN_H / 2 - map->add_y)) / 1000 / map->f->zoom;
+		x_mult = x * (1 - 0.9);
+    	y_mult = y * (1 - 0.9);
+		map->f->zoom *= 0.9;
+		printf("%f %f\n",x_mult,y_mult);
+		map->f->move[0] += (((WIN_W / 2 - x)) / WIN_W )* 0.9 + x_mult;
+		map->f->move[1] += (((WIN_H / 2 - y)) / WIN_H) * 0.9 + y_mult;
 	}
-	if (key == 5)
-	{
-		map->f->zoom *= 1.1;
-		map->f->move[0] += -((WIN_H / 2 - map->add_x) / 1000) / map->f->zoom;
-		map->f->move[1] += -((WIN_W / 2 - map->add_y) / 1000) / map->f->zoom;
-	}
+
 	redraw(map);
 	return (0);
 }
@@ -67,8 +81,8 @@ int		mouse_move_hook(int x, int y, t_map *map)
 {
 	if (map->f->pause)
 	{
-		map->f->c[0] = ((float)((x - WIN_W) / 2)/ WIN_W) * 0.84;
-		map->f->c[1] = ((float)((y - WIN_H) / 2) / WIN_H) * 0.84;
+		map->f->c[0] = ((float)((x - WIN_W) / 2)/ WIN_W) * 0.8;
+		map->f->c[1] = ((float)((y - WIN_H) / 2) / WIN_H) * 0.8;
 		redraw(map);
 	}
 	return (0);
