@@ -25,7 +25,7 @@ void init_mandelbrot(t_map *map)
 	map->f->re_area[0] = -2;
 	map->f->re_area[1] = -0.5;
 	map->f->im_area[0] = -2;
-	map->f->im_area[1] = map->f->im_area[0]+ (map->f->re_area[1]-map->f->re_area[0]) * WIN_H/WIN_W;
+	map->f->im_area[1] = map->f->im_area[0] + (map->f->re_area[1]-map->f->re_area[0]) * WIN_H/WIN_W;
 	map->f->add[0] = (map->f->re_area[1] - map->f->re_area[0]) / (WIN_W - 1);
 	map->f->add[1] = (map->f->im_area[1] - map->f->im_area[0]) / (WIN_H - 1);
 }
@@ -42,8 +42,11 @@ void draw_mandelbrot(t_map *map, int x, int y)
 	i = -1;
 	re = 0;
 	im = 0;
+	map->f->add[0] = (map->f->re_area[1] - map->f->re_area[0]) / (WIN_W - 1);
+	map->f->add[1] = (map->f->im_area[1] - map->f->im_area[0]) / (WIN_H - 1);
 	c[0] = map->f->re_area[0] + x * map->f->add[0];
 	c[1] = map->f->im_area[1] + y * map->f->add[1];
+
 	while (++i < map->f->iter && ((pow(re, 2) + pow(im, 2)) < 4))
 	{
 		tmp[0] = re;

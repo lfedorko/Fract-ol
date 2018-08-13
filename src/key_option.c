@@ -47,32 +47,46 @@ int		key_exit(int k, t_map *map)
 void move_image(int k, t_map *map)
 {
 	if (k == 123)
-		map->f->move[0] += 0.2;
+		map->f->re_area[0] += 0.2;
 	else if (k == 124)
-		map->f->move[0] -= 0.2;
+		map->f->re_area[0] -= 0.2;
 	else if (k == 125)
-		map->f->move[1] -= 0.2;
+		map->f->im_area[0] += 0.2;
 	else if (k == 126)
-		map->f->move[1] += 0.2;
+		map->f->im_area[0] -= 0.2;
 	redraw(map);
 }
+
+float interpolate(float start, float end, float interpolation)
+{
+    return start + ((end - start) * interpolation);
+}
+void applyZoom(t_map *map, float mouseRe, float mouseIm, float zoomFactor)
+{
+     float interpolation = 1.0 / zoomFactor;
+     map->f->re_area[0] = interpolate(mouseRe, map->f->re_area[0], interpolation);
+     map->f->im_area[0] = interpolate(mouseIm, map->f->im_area[0], interpolation);
+     map->f->re_area[1] = interpolate(mouseRe, map->f->re_area[1], interpolation);
+     map->f->im_area[1] = interpolate(mouseIm, map->f->im_area[1], interpolation);
+}
+
 
 int		zoom_with_mouse(int key, int x, int y, t_map *map)
 {
 
-	double x_mult, y_mult;
-	printf("%d %d\n",x,y);
+	float x_re, y_im;
 
+	printf("%d %d\n", x, y );
+	x_re =  x / (WIN_W / (map->f->re_area[1] - map->f->re_area[0])) + map->f->re_area[0];
+	y_im =  y / (WIN_H / (map->f->im_area[1] - map->f->im_area[0])) + map->f->im_area[0];
 	if (key == 4)
 	{
-		x_mult = x * (1 - 0.9);
-    	y_mult = y * (1 - 0.9);
-		map->f->zoom *= 0.9;
-		printf("%f %f\n",x_mult,y_mult);
-		map->f->move[0] += (((WIN_W / 2 - x)) / WIN_W )* 0.9 + x_mult;
-		map->f->move[1] += (((WIN_H / 2 - y)) / WIN_H) * 0.9 + y_mult;
+		applyZoom(map, x_re, y_im, 1.05);
 	}
-
+	if (key == 5)
+	{
+		applyZoom(map, x_re, y_im, 0.95);
+	}
 	redraw(map);
 	return (0);
 }
