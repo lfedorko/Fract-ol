@@ -37,17 +37,17 @@ void	set_color(t_map *map, int x, int y)
 
 void	init_fractol(t_map *map)
 {
-		if (map->f->fract == 1)
+		if (map->fractol == 1)
         {
-            map->fract = draw_mandelbrot;
+            map->fract= draw_mandelbrot;
             init_mandelbrot(map);
         }
-		else if (map->f->fract == 2)
+		else if (map->fractol == 2)
         {
             map->fract = ship_draw;
             init_ship(map);
         }
-		else if (map->f->fract == 3)
+		else if (map->fractol == 3)
         {
             map->fract = julia_draw;
             init_julia(map);
@@ -77,7 +77,7 @@ void	show_menu(t_map* map)
 	mlx_string_put(map->mlx, map->win, 25, 430, 0xFFFFFF,  "[R] - reset");
 	mlx_string_put(map->mlx, map->win, 25, 460, 0xFFFFFF,  "[ARROWS] - move");
 	mlx_string_put(map->mlx, map->win, 25, 490, 0xFFFFFF,  "[+/-] - iteration");
-	if (map->f->fract == 3)
+	if (map->fractol == 3)
 		mlx_string_put(map->mlx, map->win, 25, 520, 0xFFFFFF,  "[SPACE] - rotate");
 	// if (map->f->pause == 0)
 	// 	mlx_string_put(map->mlx, map->win, 25, 500, 0xFF, "PAUSE");

@@ -1,6 +1,5 @@
 NAME = fractol
 
-FLAGS = -Wall -Wextra -Werror
 
 SOURCE = src/main.c \
 		src/key_option.c \

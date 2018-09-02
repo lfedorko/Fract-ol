@@ -1,10 +1,11 @@
+
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define WIN_H 600
 # define WIN_W 800
-# define THR 8
+# define THR 4
 # define WIN_SIZE
-# include <mlx.h>
+# include "../minilibx_macos/mlx.h"
 # include <stdio.h>
 # include <stdlib.h> 
 # include <math.h>
@@ -24,7 +25,6 @@ typedef struct	s_color
 */
 typedef struct	s_fractol
 {
-	int			fract;
 	float		zoom;
 	int			iter;
 	int			x; 
@@ -39,6 +39,7 @@ typedef struct	s_fractol
 
 typedef struct	s_map
 {
+	int			fractol;
 	int			thread;
 	void		*mlx;
 	void		*win;
@@ -47,18 +48,12 @@ typedef struct	s_map
 	int			s_l;
 	int			b_p_p;
 	int			end;
+	int			b_end;
+	int			begin;
     void        (*fract)(struct s_map *, int, int);
 	t_fractol 	*f;
 	t_color		*color;
 }				t_map;
-
-typedef struct	s_thread
-{
-	t_map		*map;
-	int			begin;
-	int			end;
-	pthread_t	thread;
-}				t_thread;
 
 void	ft_bzero(void *s, size_t n);
 char			*ft_itoa(int n);

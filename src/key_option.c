@@ -39,7 +39,7 @@ int		key_exit(int k, t_map *map)
 	}
 	if (k == 123 || k == 124 || k == 125 || k == 126)
 		move_image(k, map);
- 	if (k == 49 && map->f->fract == 3)
+ 	if (k == 49 && map->fractol == 3)
 		map->f->pause = !map->f->pause;
 	return (1);
 }

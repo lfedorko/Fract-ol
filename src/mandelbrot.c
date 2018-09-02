@@ -42,17 +42,12 @@ void draw_mandelbrot(t_map *map, int x, int y)
 	i = -1;
 	re = 0;
 	im = 0;
-	map->f->add[0] = (map->f->re_area[1] - map->f->re_area[0]) / (WIN_W - 1);
-	map->f->add[1] = (map->f->im_area[1] - map->f->im_area[0]) / (WIN_H - 1);
-	c[0] = map->f->re_area[0] + x * map->f->add[0];
-	c[1] = map->f->im_area[1] + y * map->f->add[1];
-
 	while (++i < map->f->iter && ((pow(re, 2) + pow(im, 2)) < 4))
 	{
 		tmp[0] = re;
 		tmp[1] = im;
-		re = pow(tmp[0], 2) - pow(tmp[1], 2) + c[0];
-		im = 2 * tmp[0] * tmp[1] + c[1];
+		re = pow(tmp[0], 2) - pow(tmp[1], 2) + map->f->c[0];
+		im = 2 * tmp[0] * tmp[1] + map->f->c[1];
 	}
 	if (i < map->f->iter && pos >= 0 && pos < WIN_H * WIN_W * 4) 
 	{
