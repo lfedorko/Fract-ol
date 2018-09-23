@@ -47,13 +47,25 @@ int		key_exit(int k, t_map *map)
 void move_image(int k, t_map *map)
 {
 	if (k == 123)
-		map->f->re_area[0] += 0.02 * (map->f->re_area[1] - map->f->re_area[0]);
-	else if (k == 124)
-		map->f->re_area[0] -= 0.02 * (map->f->re_area[1] - map->f->re_area[0]);
-	else if (k == 125)
-		map->f->im_area[0] += 0.02 * (map->f->re_area[1] - map->f->re_area[0]);
+    {
+		map->f->re_area[0] += 0.02;
+	    map->f->re_area[1] += 0.02;
+    }
+    else if (k == 124)
+    {
+        map->f->re_area[0] -= 0.02;
+        map->f->re_area[1] -= 0.02;
+    }
+    else if (k == 125)
+    {
+        map->f->im_area[0] += 0.02;
+        map->f->im_area[1] += 0.02;
+    }
 	else if (k == 126)
-		map->f->im_area[0] -= 0.02 * (map->f->re_area[1] - map->f->re_area[0]);
+    {
+        map->f->im_area[0] -= 0.02;
+        map->f->im_area[1] -= 0.02;
+    }
 	redraw(map);
 }
 
