@@ -17,6 +17,7 @@ void 	*handle_thread(t_map *p)
 {
 	int			x;
 	int			y;
+	float       c[2];
 
 	x = p->begin - 1;
 	while (++x < p->b_end)
@@ -24,9 +25,9 @@ void 	*handle_thread(t_map *p)
 		y = -1;
 		while (++y < WIN_H)	
 		{
-			p->f->c[0] = p->f->re_area[0] + x * p->f->add[0];
-			p->f->c[1] = p->f->im_area[1] + y * p->f->add[1];
-			draw_mandelbrot(p, x, y);
+			c[0] = p->f->re_area[0] + x * p->f->add[0];
+			c[1] = p->f->im_area[1] + y * p->f->add[1];
+			draw_mandelbrot(p, x, y, c);
 		}
 	}
 	return (NULL);

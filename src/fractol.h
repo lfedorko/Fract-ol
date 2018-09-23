@@ -3,7 +3,7 @@
 # define FRACTOL_H
 # define WIN_H 600
 # define WIN_W 800
-# define THR 4
+# define THR 6
 # define WIN_SIZE
 # include "../minilibx_macos/mlx.h"
 # include <stdio.h>
@@ -81,7 +81,7 @@ void	        julia_draw(t_map *map, int x, int y);
 ** mandelbrot.c
 */
 void			init_mandelbrot(t_map *map);
-void			draw_mandelbrot(t_map *map, int x, int y);
+void			draw_mandelbrot(t_map *map, int x, int y, float *c);
 /*
 ** burning_ship.c
 */
