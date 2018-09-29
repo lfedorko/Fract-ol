@@ -13,7 +13,7 @@
 
 #include "fractol.h"
 
-void 	*handle_thread(t_map *p)
+void 	handle_thread(t_map *p)
 {
 	int			x;
 	int			y;
@@ -23,19 +23,17 @@ void 	*handle_thread(t_map *p)
 	while (++x < p->b_end)
 	{
 		y = -1;
+        c[0] = p->f->re_area[0] + x * p->f->add[0];
 		while (++y < WIN_H)	
 		{
-			c[0] = p->f->re_area[0] + x * p->f->add[0];
 			c[1] = p->f->im_area[1] + y * p->f->add[1];
 			draw_mandelbrot(p, x, y, c);
 		}
 	}
-	return (NULL);
 }
 
 void free_func(t_map *map)
 {
-	free(map);
 	free(map->color);
 	free(map);
 }
@@ -56,7 +54,7 @@ void  draw(t_map *map)
 		zone[i] = *map;
 		zone[i].begin = i * part;
 		zone[i].b_end = zone[i].begin + part;
-		pthread_create(&th[i], NULL, (void *(*)(void *))handle_thread, (void *)(&zone[i]));
+		pthread_create(&th[i], NULL, (void *)handle_thread, (void *)(&zone[i]));
 	}
 	i = -1;
 	while (++i < THR)

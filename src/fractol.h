@@ -3,7 +3,7 @@
 # define FRACTOL_H
 # define WIN_H 600
 # define WIN_W 800
-# define THR 6
+# define THR 8
 # define WIN_SIZE
 # include "../minilibx_macos/mlx.h"
 # include <stdio.h>

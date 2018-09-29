@@ -48,18 +48,18 @@ void move_image(int k, t_map *map)
 {
 	if (k == 123)
     {
-		map->f->re_area[0] += 0.02;
-	    map->f->re_area[1] += 0.02;
+		map->f->re_area[0] += 0.1;
+	    map->f->re_area[1] += 0.1;
     }
     else if (k == 124)
     {
-        map->f->re_area[0] -= 0.02;
-        map->f->re_area[1] -= 0.02;
+        map->f->re_area[0] -= 0.1;
+        map->f->re_area[1] -= 0.1;
     }
     else if (k == 125)
     {
-        map->f->im_area[0] += 0.02;
-        map->f->im_area[1] += 0.02;
+        map->f->im_area[0] += 0.1;
+        map->f->im_area[1] += 0.1;
     }
 	else if (k == 126)
     {
@@ -90,11 +90,12 @@ int		zoom_with_mouse(int key, int x, int y, t_map *map)
 	float x_re;
 	float y_im;
 
-	x_re =  x / (WIN_W / (map->f->re_area[1] - map->f->re_area[0])) + map->f->re_area[0];
-	y_im =  y / (WIN_H / (map->f->im_area[1] - map->f->im_area[0])) + map->f->im_area[0];
+	x_re =  (x / WIN_W) * (map->f->re_area[1] - map->f->re_area[0]) + map->f->re_area[0];
+	y_im =  ((WIN_H - y)/ WIN_H) * (map->f->im_area[1] - map->f->im_area[0]) + map->f->im_area[0];
 	if (key == 4)
 	{
-		applyZoom(map, x_re, y_im, 1.05);
+
+		applyZoom(map, x_re, y_im, 1.01);
 	}
 	if (key == 5)
 	{
