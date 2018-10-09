@@ -26,8 +26,8 @@ void 	handle_thread(t_map *p)
         c[0] = p->f->re_area[0] + x * p->f->add[0];
 		while (++y < WIN_H)	
 		{
-			c[1] = p->f->im_area[1] + y * p->f->add[1];
-			draw_mandelbrot(p, x, y, c);
+			c[1] = p->f->im_area[1] - y * p->f->add[1];
+			p->fract(p, x, y, c);
 		}
 	}
 }
@@ -74,8 +74,8 @@ void	process(int n)
 	mlx_hook(map->win, 17, 1L << 17, mouse_exit, map);
 	mlx_hook(map->win, 2, 0, key_exit, map);
 	mlx_mouse_hook(map->win, zoom_with_mouse, map);
-	// if (map->f->fract == 3)
-	// 	mlx_hook(map->win, 6, (1L << 6), mouse_move_hook, map);
+	if (map->fractol == 3)
+		mlx_hook(map->win, 6, (1L << 6), mouse_move_hook, map);
 	show_menu(map);
 	mlx_loop(map->mlx);
 	//free_func(map);

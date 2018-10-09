@@ -3,13 +3,10 @@ project(fdf)
 find_library(MLX mlx)
 set(CMAKE_C_STANDARD 99)
 set(SOURCE_FILES
-        src/burning_ship.c
         src/draw_options.c
         src/key_option.c
         src/main.c
         src/mandelbrot.c
-        src/burning_ship.c
-        src/julia.c
         src/lib_function/ft_bzero.c
         src/lib_function/ft_itoa.c
         src/lib_function/ft_memset.c

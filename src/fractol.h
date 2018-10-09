@@ -27,9 +27,7 @@ typedef struct	s_fractol
 {
 	float		zoom;
 	int			iter;
-	int			x; 
-	int			y;
-	float		c[2]; 
+	float		c[2];
 	float		re_area[2];
 	float		im_area[2];
 	float 		add[2];
@@ -40,7 +38,6 @@ typedef struct	s_fractol
 typedef struct	s_map
 {
 	int			fractol;
-	int			thread;
 	void		*mlx;
 	void		*win;
 	char		*image;
@@ -50,7 +47,7 @@ typedef struct	s_map
 	int			end;
 	int			b_end;
 	int			begin;
-    void        (*fract)(struct s_map *, int, int);
+    void        (*fract)(struct s_map *, int, int, float *);
 	t_fractol 	*f;
 	t_color		*color;
 }				t_map;
@@ -75,18 +72,16 @@ int			zoom_with_mouse(int key, int x, int y, t_map *map);
 /*
 ** julia.c
 */
-void			init_julia(t_map *map);
-void	        julia_draw(t_map *map, int x, int y);
-/*
-** mandelbrot.c
-*/
-void			init_mandelbrot(t_map *map);
+void	        julia_draw(t_map *map, int x, int y, float *c);
+///*
+//** mandelbrot.c
+//
+void			init(t_map *map);
 void			draw_mandelbrot(t_map *map, int x, int y, float *c);
 /*
 ** burning_ship.c
 */
-void			init_ship(t_map *map);
-void			ship_draw(t_map *map, int x, int y);
+void			ship_draw(t_map *map, int x, int y, float *c);
 
 /*
 ** draw_options.c

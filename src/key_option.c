@@ -69,37 +69,28 @@ void move_image(int k, t_map *map)
 	redraw(map);
 }
 
-float interpolate(float start, float end, float interpolation)
-{
-    return start + ((end - start) * interpolation);
-}
-
 void applyZoom(t_map *map, float mouseRe, float mouseIm, float zoomFactor)
 {
-     float interpolation = 1.0 / zoomFactor;
-     map->f->re_area[0] = interpolate(mouseRe, map->f->re_area[0], interpolation);
-     map->f->im_area[0] = interpolate(mouseIm, map->f->im_area[0], interpolation);
-     map->f->re_area[1] = interpolate(mouseRe, map->f->re_area[1], interpolation);
-     map->f->im_area[1] = interpolate(mouseIm, map->f->im_area[1], interpolation);
+	float re;
+	float im;
+
+	im = map->f->im_area[1] - mouseIm * (map->f->im_area[1] - map->f->im_area[0]) / (WIN_H - 1);
+	re = map->f->re_area[0] + mouseRe * (map->f->re_area[1] - map->f->re_area[0]) / (WIN_W - 1);
+	map->f->re_area[0] = re + ((map->f->re_area[0] - re) * zoomFactor);
+	map->f->re_area[1] = re + ((map->f->re_area[1] - re) * zoomFactor);
+	map->f->im_area[0] = im + ((map->f->im_area[0] - im) * zoomFactor);
+	map->f->im_area[1] = im + ((map->f->im_area[1] - im) * zoomFactor);
 }
 
 
 int		zoom_with_mouse(int key, int x, int y, t_map *map)
 {
 
-	float x_re;
-	float y_im;
-
-	x_re =  (x / WIN_W) * (map->f->re_area[1] - map->f->re_area[0]) + map->f->re_area[0];
-	y_im =  ((WIN_H - y)/ WIN_H) * (map->f->im_area[1] - map->f->im_area[0]) + map->f->im_area[0];
 	if (key == 4)
-	{
-
-		applyZoom(map, x_re, y_im, 1.01);
-	}
+		applyZoom(map, x, y, 1.1);
 	if (key == 5)
 	{
-		applyZoom(map, x_re, y_im, 0.95);
+		applyZoom(map, x, y, 0.95);
 	}
 	redraw(map);
 	return (0);
