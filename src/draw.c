@@ -35,19 +35,6 @@ void	set_color(t_map *map, int x, int y)
 	}
 }
 
-void	init_fractol(t_map *map)
-{
-		if (map->fractol == 1)
-        	map->fract= draw_mandelbrot;
-        else if (map->fractol == 2)
-			map->fract = ship_draw;
-		else if (map->fractol == 3)
-        	map->fract = julia_draw;
-	init(map);
-	draw(map);
-}
-
-
 void	show_menu(t_map* map)
 {
 	mlx_string_put(map->mlx, map->win, 25, 50, 0xFFFF00, "Iteration:");
@@ -57,8 +44,10 @@ void	show_menu(t_map* map)
 	mlx_string_put(map->mlx, map->win, 25, 460, 0xFFFFFF,  "[ARROWS] - move");
 	mlx_string_put(map->mlx, map->win, 25, 490, 0xFFFFFF,  "[+/-] - iteration");
 	if (map->fractol == 3)
-		mlx_string_put(map->mlx, map->win, 25, 520, 0xFFFFFF,  "[SPACE] - rotate");
-	// if (map->f->pause == 0)
-	// 	mlx_string_put(map->mlx, map->win, 25, 500, 0xFF, "PAUSE");
+        mlx_string_put(map->mlx, map->win, 25, 520, 0xFFFFFF,  "[SPACE] - rotate");
+	if (map->f->pause == 0 && map->fractol == 3)
+	    mlx_string_put(map->mlx, map->win, 25, 100, 0xFF, "PAUSE");
+
+	mlx_string_put(map->mlx, map->win, 25, 230, 0xFFFFFF,  "After numerous iterations, if the magnitude of z is less than 2 we say that pixel is in the Julia set and color it accordingly. Performing this calculation for a whole grid of pixels gives a fractal image.");
 
 }

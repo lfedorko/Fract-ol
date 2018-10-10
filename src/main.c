@@ -24,17 +24,36 @@ void 	handle_thread(t_map *p)
 	{
 		y = -1;
         c[0] = p->f->re_area[0] + x * p->f->add[0];
-		while (++y < WIN_H)	
-		{
+        while (++y < WIN_H)
+        {
 			c[1] = p->f->im_area[1] - y * p->f->add[1];
 			p->fract(p, x, y, c);
 		}
 	}
 }
 
+void 	handle_julia_thread(t_map *p)
+{
+	int			x;
+	int			y;
+	float       c[2];
+
+	x = p->begin - 1;
+	while (++x < p->b_end)
+	{
+		y = -1;
+		c[0] = p->f->j[0] + x * p->f->add[0];
+		while (++y < WIN_H)
+		{
+			c[1] = p->f->j[1];
+			p->fract(p, x, y, c);
+		}
+	}
+}
 void free_func(t_map *map)
 {
 	free(map->color);
+	free(map->f);
 	free(map);
 }
 
@@ -55,11 +74,12 @@ void  draw(t_map *map)
 		zone[i].begin = i * part;
 		zone[i].b_end = zone[i].begin + part;
 		pthread_create(&th[i], NULL, (void *)handle_thread, (void *)(&zone[i]));
+
+
 	}
 	i = -1;
 	while (++i < THR)
 		pthread_join(th[i], NULL);
-	//free(zone);
 }
 void	process(int n)
 {
@@ -69,6 +89,8 @@ void	process(int n)
 	map->f =(t_fractol *)malloc(sizeof(t_fractol));
 	map->f->pause = 0;
 	map->fractol = n;
+	init_map(map);
+	init_param(map);
 	init_fractol(map);
 	mlx_put_image_to_window(map->mlx, map->win, map->n_i, 200, 0);
 	mlx_hook(map->win, 17, 1L << 17, mouse_exit, map);
@@ -78,19 +100,18 @@ void	process(int n)
 		mlx_hook(map->win, 6, (1L << 6), mouse_move_hook, map);
 	show_menu(map);
 	mlx_loop(map->mlx);
-	//free_func(map);
 }
 
 int		main(int argc, char **argv)
 {
 	if (argc == 2 && ft_strlen(argv[1]) == 1 &&
-		(*argv[1] > '0' && *argv[1] < '5'))
+		(*argv[1] > '0' && *argv[1] < '4'))
 		process(*argv[1] - 48);
 	else
 	{
 		write(1, "Invalid argument\n", 17);
 		write(1, "./fractol <fractol-number>\n", 27);
-		write(1, "1 - mandelbrot\n2 - ship\n3 - NaN\n4 - julia\n", 47);
+		write(1, "1 - mandelbrot\n2 - ship\n3 - julia\n", 47);
 	}
 	return (0);
 }

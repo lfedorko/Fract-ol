@@ -4,9 +4,7 @@ NAME = fractol
 SOURCE = src/main.c \
 		src/key_option.c \
 		src/draw_options.c \
-		src/mandelbrot.c \
-		src/julia.c \
-		src/burning_ship.c \
+		src/fract.c \
 		src/lib_function/ft_bzero.c \
 		src/lib_function/ft_itoa.c \
 		src/lib_function/ft_strlen.c \

@@ -25,7 +25,7 @@ int		key_exit(int k, t_map *map)
 		exit(0);
 	if (k == 24)
 	{
-		if (map->f->iter < 200)
+		if (map->f->iter < MAX_ITER)
 			map->f->iter += 5;
 		redraw(map);
 	}
@@ -39,9 +39,16 @@ int		key_exit(int k, t_map *map)
 	}
 	if (k == 123 || k == 124 || k == 125 || k == 126)
 		move_image(k, map);
- 	if (k == 49 && map->fractol == 3)
+ 	if (k == 49 && map->fractol == 3) {
 		map->f->pause = !map->f->pause;
-	return (1);
+		redraw(map);
+	}
+ 	if (k == 15)
+ 	{
+ 	    init_param(map);
+        redraw(map);
+    }
+    return (1);
 }
 
 void move_image(int k, t_map *map)
@@ -69,39 +76,52 @@ void move_image(int k, t_map *map)
 	redraw(map);
 }
 
-void applyZoom(t_map *map, float mouseRe, float mouseIm, float zoomFactor)
+void apply_zoom(t_map *map, float mouseRe, float mouseIm, float zoomFactor)
 {
 	float re;
 	float im;
 
 	im = map->f->im_area[1] - mouseIm * (map->f->im_area[1] - map->f->im_area[0]) / (WIN_H - 1);
 	re = map->f->re_area[0] + mouseRe * (map->f->re_area[1] - map->f->re_area[0]) / (WIN_W - 1);
-	map->f->re_area[0] = re + ((map->f->re_area[0] - re) * zoomFactor);
-	map->f->re_area[1] = re + ((map->f->re_area[1] - re) * zoomFactor);
-	map->f->im_area[0] = im + ((map->f->im_area[0] - im) * zoomFactor);
-	map->f->im_area[1] = im + ((map->f->im_area[1] - im) * zoomFactor);
+	map->f->re_area[0] = ((map->f->re_area[0] - re) * zoomFactor) + re;
+	map->f->re_area[1] = ((map->f->re_area[1] - re) * zoomFactor) + re;
+	map->f->im_area[0] = ((map->f->im_area[0] - im) * zoomFactor) + im;
+	map->f->im_area[1] = ((map->f->im_area[1] - im) * zoomFactor) + im;
 }
 
 
 int		zoom_with_mouse(int key, int x, int y, t_map *map)
 {
-
-	if (key == 4)
-		applyZoom(map, x, y, 1.1);
-	if (key == 5)
-	{
-		applyZoom(map, x, y, 0.95);
-	}
-	redraw(map);
-	return (0);
+    if (x >= 200) {
+        x -= 200;
+        if (key == 4)
+		{
+			apply_zoom(map, x, y, 1.1);
+			if (map->f->iter > 2)
+			{
+				map->f->iter -= 2;
+				redraw(map);
+			}
+		}
+        if (key == 5)
+        {
+            apply_zoom(map, x, y, 0.95);
+            if (map->f->iter < MAX_ITER)
+            {
+                map->f->iter += 2;
+                redraw(map);
+            }
+        }
+    }
+    return (0);
 }
 
 int		mouse_move_hook(int x, int y, t_map *map)
 {
 	if (map->f->pause)
 	{
-		map->f->c[0] = ((float)((x - WIN_W) / 2)/ WIN_W) * 0.8;
-		map->f->c[1] = ((float)((y - WIN_H) / 2) / WIN_H) * 0.8;
+		map->f->j[0] = ((float)((x - WIN_W) / 2)/ WIN_W);
+		map->f->j[1] = ((float)((y - WIN_H) / 2) / WIN_H);
 		redraw(map);
 	}
 	return (0);
