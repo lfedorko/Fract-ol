@@ -12,9 +12,9 @@
 
 #include "fractol.h"
 
-void draw_mandelbrot(t_map *map, int x, int y, float *c)
+void draw_mandelbrot(t_map *map, int x, int y, double *c)
 {
-	float	tmp[2];
+	float	tmp[3];
 	int		i;
 	float	re;
 	float	im;
@@ -41,7 +41,7 @@ void draw_mandelbrot(t_map *map, int x, int y, float *c)
 	}
 }
 
-void	ship_draw(t_map *map, int x, int y, float *c)
+void	ship_draw(t_map *map, int x, int y, double *c)
 {
     float	tmp[3];
     int		i;
@@ -65,15 +65,15 @@ void	ship_draw(t_map *map, int x, int y, float *c)
     if (i < map->f->iter && pos >= 0 && pos < WIN_H * WIN_W * 4)
     {
         pos = x * 4 + y * map->s_l;
-        map->image[pos] = 0;
-        map->image[pos + 1] = i * 6;
-        map->image[pos + 2] = i * 6 % 128;
+        map->image[pos] = i * 6;
+        map->image[pos + 1] = i * 6 % 128;
+        map->image[pos + 2] = 0;
     }
 }
 
-void	julia_draw(t_map *map, int x, int y, float *c)
+void	julia_draw(t_map *map, int x, int y, double *c)
 {
-	float	tmp[2];
+	float	tmp[3];
 	int		i;
 	float	re;
 	float	im;
@@ -96,7 +96,7 @@ void	julia_draw(t_map *map, int x, int y, float *c)
 	{
 		pos = x * 4 + y * map->s_l;
 		map->image[pos] = 0;
-		map->image[pos + 1] = i * 6;
+		map->image[pos + 1] = i * 6 % 64;
 		map->image[pos + 2] = i * 6 % 128;
 	}
 }

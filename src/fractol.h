@@ -1,8 +1,8 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define WIN_H 600
-# define WIN_W 800
-# define MAX_ITER 400
+# define WIN_W 600
+# define MAX_ITER 4000
 # define THR 8
 # define WIN_SIZE
 # include "../minilibx_macos/mlx.h"
@@ -24,10 +24,10 @@ typedef struct	s_fractol
 {
 	float		zoom;
 	int			iter;
-	float		j[2];
-	float		re_area[2];
-	float		im_area[2];
-	float 		add[2];
+	double      j[2];
+    double		re_area[2];
+    double		im_area[2];
+	double 		add[2];
     int			pause;
 }				t_fractol;
 
@@ -65,9 +65,9 @@ int			    key_exit(int k, t_map *map);
 int			    move_with_mouse(int x, int y, t_map *map);
 int			    zoom_with_mouse(int key, int x, int y, t_map *map);
 
-void	        julia_draw(t_map *map, int x, int y, float *c);
-void			draw_mandelbrot(t_map *map, int x, int y, float *c);
-void			ship_draw(t_map *map, int x, int y, float *c);
+void	        julia_draw(t_map *map, int x, int y, double *c);
+void			draw_mandelbrot(t_map *map, int x, int y, double *c);
+void			ship_draw(t_map *map, int x, int y, double *c);
 
 /*
 ** draw.c

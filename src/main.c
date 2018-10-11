@@ -17,9 +17,10 @@ void 	handle_thread(t_map *p)
 {
 	int			x;
 	int			y;
-	float       c[2];
+	double     c[2];
 
 	x = p->begin - 1;
+	printf("(%f %f) , (%f %f)\n", p->f->re_area[0], p->f->re_area[1], p->f->im_area[0], p->f->im_area[1]);
 	while (++x < p->b_end)
 	{
 		y = -1;
@@ -32,24 +33,6 @@ void 	handle_thread(t_map *p)
 	}
 }
 
-void 	handle_julia_thread(t_map *p)
-{
-	int			x;
-	int			y;
-	float       c[2];
-
-	x = p->begin - 1;
-	while (++x < p->b_end)
-	{
-		y = -1;
-		c[0] = p->f->j[0] + x * p->f->add[0];
-		while (++y < WIN_H)
-		{
-			c[1] = p->f->j[1];
-			p->fract(p, x, y, c);
-		}
-	}
-}
 void free_func(t_map *map)
 {
 	free(map->color);
@@ -75,7 +58,6 @@ void  draw(t_map *map)
 		zone[i].b_end = zone[i].begin + part;
 		pthread_create(&th[i], NULL, (void *)handle_thread, (void *)(&zone[i]));
 
-
 	}
 	i = -1;
 	while (++i < THR)
@@ -92,7 +74,7 @@ void	process(int n)
 	init_map(map);
 	init_param(map);
 	init_fractol(map);
-	mlx_put_image_to_window(map->mlx, map->win, map->n_i, 200, 0);
+	mlx_put_image_to_window(map->mlx, map->win, map->n_i, 0, 0);
 	mlx_hook(map->win, 17, 1L << 17, mouse_exit, map);
 	mlx_hook(map->win, 2, 0, key_exit, map);
 	mlx_mouse_hook(map->win, zoom_with_mouse, map);

@@ -5,6 +5,7 @@ SOURCE = src/main.c \
 		src/key_option.c \
 		src/draw_options.c \
 		src/fract.c \
+		src/init.c \
 		src/lib_function/ft_bzero.c \
 		src/lib_function/ft_itoa.c \
 		src/lib_function/ft_strlen.c \

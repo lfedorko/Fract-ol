@@ -16,7 +16,7 @@ void init_param(t_map *map)
     map->f->re_area[0] = -2.1;
     map->f->re_area[1] = 1.1;
     map->f->im_area[0] = -1.2;
-    map->f->im_area[1] = map->f->im_area[0] + (map->f->re_area[1] - map->f->re_area[0]) * WIN_H/ WIN_W;
+    map->f->im_area[1] = map->f->im_area[0] + (map->f->re_area[1] - map->f->re_area[0]) * (WIN_H/ WIN_W);
 }
 
 void	init_fractol(t_map *map)
