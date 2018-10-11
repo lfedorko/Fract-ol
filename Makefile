@@ -1,6 +1,5 @@
 NAME = fractol
 
-
 SOURCE = src/main.c \
 		src/key_option.c \
 		src/draw_options.c \
@@ -16,7 +15,7 @@ OBJECTS = $(SOURCE:.c=.o)
 all: $(NAME)
 
 %.o: %.c
-	@gcc -c $< -o $@ -I $(LIB_DIR) -I $(LIB_INC)
+	@gcc -c $< -o $@  -I inc/fractol.h
 
 $(NAME): $(OBJECTS) 
 		@cc -o $(NAME) $(SOURCE) -lmlx -framework OpenGL -framework AppKit

@@ -20,7 +20,6 @@ void 	handle_thread(t_map *p)
 	double     c[2];
 
 	x = p->begin - 1;
-	printf("(%f %f) , (%f %f)\n", p->f->re_area[0], p->f->re_area[1], p->f->im_area[0], p->f->im_area[1]);
 	while (++x < p->b_end)
 	{
 		y = -1;
