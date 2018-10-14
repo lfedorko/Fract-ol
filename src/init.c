@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
 void	init_map(t_map *map)
 {
@@ -23,11 +23,11 @@ void	init_map(t_map *map)
 
 void	init_param(t_map *map)
 {
-	map->f->iter = 10;
-	map->f->zoom = 1;
-	map->f->re_area[0] = -2.1;
-	map->f->re_area[1] = 1.1;
-	map->f->im_area[0] = -1.2;
+	map->f->iter = 50;
+	map->f->pause = 1;
+	map->f->re_area[0] = -2;
+	map->f->re_area[1] = 2;
+	map->f->im_area[0] = -2;
 	map->f->im_area[1] = map->f->im_area[0] + (map->f->re_area[1] -
 		map->f->re_area[0]) * (WIN_H / WIN_W);
 }

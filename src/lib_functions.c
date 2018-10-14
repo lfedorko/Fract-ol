@@ -1,18 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   lib_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lfedorko <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lfedorko <lfedorko@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/04 17:09:40 by lfedorko          #+#    #+#             */
-/*   Updated: 2016/12/07 13:43:14 by lfedorko         ###   ########.fr       */
+/*   Created: 2018/10/12 18:44:52 by lfedorko          #+#    #+#             */
+/*   Updated: 2018/10/12 18:44:54 by lfedorko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-static int		ft_size(int c)
+size_t		ft_strlen(const char *s)
+{
+	size_t i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+void		*ft_memset(void *b, int c, size_t len)
+{
+	unsigned char *s;
+
+	s = b;
+	while (len > 0)
+	{
+		*s++ = c;
+		len--;
+	}
+	return (b);
+}
+
+static int	ft_size(int c)
 {
 	int			count;
 
@@ -27,7 +50,7 @@ static int		ft_size(int c)
 	return (count);
 }
 
-char			*ft_itoa(int n)
+char		*ft_itoa(int n)
 {
 	char		*str;
 	int			count;
@@ -54,4 +77,9 @@ char			*ft_itoa(int n)
 		count--;
 	}
 	return (str);
+}
+
+void		ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, 0, n);
 }

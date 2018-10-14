@@ -1,24 +1,23 @@
 NAME = fractol
 
 SOURCE = src/main.c \
-		src/key_option.c \
-		src/draw_options.c \
+		src/key.c \
+		src/draw.c \
 		src/fract.c \
 		src/init.c \
-		src/lib_function/ft_bzero.c \
-		src/lib_function/ft_itoa.c \
-		src/lib_function/ft_strlen.c \
-		src/lib_function/ft_memset.c \
+		src/lib_functions.c \
+		src/mouse.c 
 
 OBJECTS = $(SOURCE:.c=.o)
 
+FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 %.o: %.c
-	@gcc -c $< -o $@  -I inc/fractol.h
+	@gcc -c $< -o $@ -I fractol.h
 
 $(NAME): $(OBJECTS) 
-		@cc -o $(NAME) $(SOURCE) -lmlx -framework OpenGL -framework AppKit
+		@cc -o $(NAME) $(SOURCE) $(FLAGS) -lmlx -framework OpenGL -framework AppKit
 		 @echo "\033[33mFract'ol is ready!\033[0m"
 
 

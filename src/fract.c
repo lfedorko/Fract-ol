@@ -10,18 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
-void draw_mandelbrot(t_map *map, int x, int y, double *c)
+void	draw_mandelbrot(t_map *map, int x, int y, double *c)
 {
-	float	tmp[2];
+	double	tmp[2];
 	int		i;
-	float	re;
-	float	im;
+	double	re;
+	double	im;
 	int		pos;
 
 	i = -1;
- 	re = 0;
+	re = 0;
 	im = 0;
 	while (++i < map->f->iter)
 	{
@@ -32,20 +32,20 @@ void draw_mandelbrot(t_map *map, int x, int y, double *c)
 		im = 2 * re * im + c[1];
 		re = tmp[0] - tmp[1] + c[0];
 	}
+	pos = x * 4 + y * map->s_l;
 	if (i < map->f->iter && pos >= 0 && pos < WIN_H * WIN_W * 4)
 	{
-		pos = x * 4 + y * map->s_l;
-		map->image[pos + 1] = i * 6;
-		map->image[pos + 2] = i * 6 % 128;
+		map->image[pos] = i * 6;
+		map->image[pos + 1] = i * 6 % 64;
 	}
 }
 
 void	ship_draw(t_map *map, int x, int y, double *c)
 {
-	float	tmp[2];
+	double	tmp[2];
 	int		i;
-	float	re;
-	float	im;
+	double	re;
+	double	im;
 	int		pos;
 
 	re = 0;
@@ -60,27 +60,25 @@ void	ship_draw(t_map *map, int x, int y, double *c)
 		im = fabs(2 * re * im) + (-2.0 * c[1]);
 		re = tmp[0] - tmp[1] + c[0];
 	}
-
+	pos = x * 4 + y * map->s_l;
 	if (i < map->f->iter && pos >= 0 && pos < WIN_H * WIN_W * 4)
 	{
-		pos = x * 4 + y * map->s_l;
 		map->image[pos] = i * 6;
-		map->image[pos + 1] = i * 6 % 128;
+		map->image[pos + 2] = i * 6 % 128;
 	}
 }
 
 void	julia_draw(t_map *map, int x, int y, double *c)
 {
-	float	tmp[2];
+	double	tmp[2];
 	int		i;
-	float	re;
-	float	im;
+	double	re;
+	double	im;
 	int		pos;
 
 	i = -1;
 	re = c[0];
 	im = c[1];
-
 	while (++i < map->f->iter)
 	{
 		tmp[0] = re * re;
@@ -90,10 +88,10 @@ void	julia_draw(t_map *map, int x, int y, double *c)
 		im = 2 * re * im + map->f->j[1];
 		re = tmp[0] - tmp[1] + map->f->j[0];
 	}
+	pos = x * 4 + y * map->s_l;
 	if (i < map->f->iter && pos >= 0 && pos < WIN_H * WIN_W * 4)
 	{
-		pos = x * 4 + y * map->s_l;
-		map->image[pos] = i * 6;
-		map->image[pos + 1] = i * 6 % 64;
+		map->image[pos + 1] = i * 6;
+		map->image[pos + 2] = i * 6 % 64;
 	}
 }

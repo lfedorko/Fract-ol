@@ -3,43 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lfedorko <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lfedorko <lfedorko@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/03 20:13:15 by lfedorko          #+#    #+#             */
-/*   Updated: 2018/07/03 20:13:16 by lfedorko         ###   ########.fr       */
+/*   Created: 2018/10/12 14:21:21 by lfedorko          #+#    #+#             */
+/*   Updated: 2018/10/12 14:21:23 by lfedorko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../fractol.h"
 
-#include "fractol.h"
-
-void 	handle_thread(t_map *p)
+void	handle_thread(t_map *p)
 {
 	int			x;
 	int			y;
-	double     c[2];
+	double		c[2];
 
 	x = p->begin - 1;
 	while (++x < p->b_end)
 	{
 		y = -1;
-        c[0] = p->f->re_area[0] + x * p->f->add[0];
-        while (++y < WIN_H)
-        {
-			c[1] = p->f->im_area[1] - y * p->f->add[1];
+		c[0] = p->f->re_area[0] + (double)x * p->f->add[0];
+		while (++y < WIN_H)
+		{
+			c[1] = p->f->im_area[1] - (double)y * p->f->add[1];
 			p->fract(p, x, y, c);
 		}
 	}
 }
 
-void free_func(t_map *map)
+void	free_func(t_map *map)
 {
-	free(map->color);
 	free(map->f);
 	free(map);
 }
 
-void  draw(t_map *map)
+void	draw(t_map *map)
 {
 	pthread_t	th[THR];
 	int			i;
@@ -48,26 +46,28 @@ void  draw(t_map *map)
 
 	i = -1;
 	part = WIN_W / THR;
-	map->f->add[0] = (map->f->re_area[1] - map->f->re_area[0]) / (WIN_W - 1);
-	map->f->add[1] = (map->f->im_area[1] - map->f->im_area[0]) / (WIN_H - 1);
+	map->f->add[0] = (map->f->re_area[1] - map->f->re_area[0])
+	/ (double)(WIN_W - 1);
+	map->f->add[1] = (map->f->im_area[1] - map->f->im_area[0])
+	/ (double)(WIN_H - 1);
 	while (++i < THR)
 	{
 		zone[i] = *map;
 		zone[i].begin = i * part;
 		zone[i].b_end = zone[i].begin + part;
 		pthread_create(&th[i], NULL, (void *)handle_thread, (void *)(&zone[i]));
-
 	}
 	i = -1;
 	while (++i < THR)
 		pthread_join(th[i], NULL);
 }
+
 void	process(int n)
 {
 	t_map		*map;
-	
+
 	map = (t_map *)malloc(sizeof(t_map));
-	map->f =(t_fractol *)malloc(sizeof(t_fractol));
+	map->f = (t_fractol *)malloc(sizeof(t_fractol));
 	map->f->pause = 0;
 	map->fractol = n;
 	init_map(map);
@@ -92,7 +92,7 @@ int		main(int argc, char **argv)
 	{
 		write(1, "Invalid argument\n", 17);
 		write(1, "./fractol <fractol-number>\n", 27);
-		write(1, "1 - mandelbrot\n2 - ship\n3 - julia\n", 47);
+		write(1, "1 - mandelbrot\n2 - ship\n3 - julia\n", 34);
 	}
 	return (0);
 }
